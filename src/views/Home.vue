@@ -20,7 +20,6 @@ const state = reactive({
 const isLoading = ref(false);
 const invoices = ref([]);
 const showModal = ref(false);
-const showModalUpdate = ref(false);
 
 const getInvoice = async () => {
   isLoading.value = true;
@@ -156,12 +155,12 @@ onMounted(() => {
             >
               Delete
             </button>
-            <button
-              @click="showModalUpdate = true"
+            <a
+              v-bind:href="item.invoice_number"
               class="text-right border px-2 rounded"
             >
               Edit
-            </button>
+            </a>
           </span>
         </li>
       </ul>
@@ -237,69 +236,5 @@ onMounted(() => {
         </button>
       </div>
     </form>
-  </Modal>
-  <Modal :show="showModalUpdate" @close="showModalUpdate = false">
-    <h2 class="text-3xl font-semibold mb-2 text-center">Edit invoice</h2>
-    <!-- <div
-      class="flex flex-col items-center justify-center gap-y-2 max-w-[1000px] w-full mx-auto mt-5"
-      v-if="isLoading"
-    >
-      <div class="w-fit h-fit animate-spin">
-        <v-icon name="fa-virus" scale="2" />
-      </div>
-    </div>
-    <form v-else class="flex flex-col gap-5" :onsubmit="addInvoice">
-      <div class="flex flex-col gap-[2px]">
-        <span class="text-lg">Jobs</span>
-        <Input
-          placeholder="Jobs"
-          :value="state.jobs"
-          :onchange="(e) => (state.jobs = e.target.value)"
-        />
-      </div>
-      <div class="flex flex-col gap-[2px]">
-        <span class="text-lg">Status</span>
-        <SelectStatus v-model="state.status" :options="options" />
-      </div>
-      <div class="flex flex-col gap-[2px]">
-        <span class="text-lg">Due Date</span>
-        <DateInput
-          v-model="state.due_date"
-          label="Pick a Date"
-          id="custom-date-input"
-        />
-      </div>
-      <div class="flex flex-col gap-[2px]">
-        <span class="text-lg">Total Amount</span>
-        <Input
-          placeholder="Total Amount, Ex : 1000"
-          type="number"
-          :value="state.total_amount"
-          :onchange="(e) => (state.total_amount = e.target.value)"
-        />
-      </div>
-      <div class="w-full flex items-end justify-end gap-x-3 mt-4">
-        <button
-          :class="[
-            'bg-rose-500 text-white px-4 py-2 rounded hover:bg-red-600',
-            isLoading ? '!bg-rose-900' : '',
-          ]"
-          @click="showModal = false"
-          :disabled="isLoading"
-        >
-          Close
-        </button>
-        <button
-          :class="[
-            'bg-emerald-500 text-white px-4 py-2 rounded hover:bg-emerald-600',
-            isLoading ? '!bg-emerald-900' : '',
-          ]"
-          type="submit"
-          :disabled="isLoading"
-        >
-          Save
-        </button>
-      </div>
-    </form> -->
   </Modal>
 </template>
